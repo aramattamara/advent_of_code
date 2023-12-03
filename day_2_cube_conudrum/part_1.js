@@ -17,42 +17,41 @@ fs.readFile("input.txt", "utf-8", (err, data) => {
             const games = line.substring(match[0].length).split(";");
             console.log(gameNumber)
 
-            const targetCountRed = 12;
-            const targetCountGreen = 13;
-            const targetCountBlue = 14;
-
-            const redRegex = /(\d+) red/;
-            const greenRegex =  /(\d+) green/;
-            const blueRegex =  /(\d+) blue/;
-
-
             const has12RedAnd13GreenAnd14Blue = (games) => {
-                const redMatch = games.match(redRegex);
-                const greenMatch = games.match(greenRegex);
-                const blueMatch = games.match(blueRegex);
+                const redMatch = games.match(/(\d+) red/);
+                const greenMatch = games.match(/(\d+) green/);
+                const blueMatch = games.match(/(\d+) blue/);
 
                 const redCount = redMatch ? parseInt(redMatch[1], 10) : 0;
                 const greenCount = greenMatch ? parseInt(greenMatch[1], 10) : 0;
                 const blueCount = blueMatch ? parseInt(blueMatch[1], 10) : 0;
 
-
-                let res =  redCount <= targetCountRed && greenCount <= targetCountGreen && blueCount <= targetCountBlue;
-                return res;
-
+                return redCount <= 12 && greenCount <= 13 && blueCount <= 14;
             }
 
-            let lose = 0;
 
-            for (let i = 0; i < games.length; i++){
-                if (!has12RedAnd13GreenAnd14Blue(games[i])) {
-                    lose += 1;
-                }
-            }
+            const allGamesValid = games.reduce(
+                (p, g) => p + has12RedAnd13GreenAnd14Blue(g),
+                0);
 
-            if (lose === 0) {
+            if (allGamesValid === games.length) {
                 resglobal += gameNumber;
                 console.log(`resglobal ${resglobal} gamenumber ${gameNumber} `)
             }
+
+
+            // let loseGames = true;
+            //
+            // for (let i = 0; i < games.length; i++){
+            //     if (!has12RedAnd13GreenAnd14Blue(games[i])) {
+            //         loseGames = false;
+            //     }
+            // }
+            //
+            // if (loseGames) {
+            //     resglobal += gameNumber;
+            //     console.log(`resglobal ${resglobal} gamenumber ${gameNumber} `)
+            // }
         }
 
         console.log(resglobal)
