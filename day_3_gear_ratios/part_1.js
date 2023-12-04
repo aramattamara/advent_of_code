@@ -10,6 +10,15 @@ fs.readFile("in.txt", "utf-8", (err, data) => {
         const N = rows.length;
         const M = rows[0].length;
 
+        const whichNumber = [];
+        // Initialize whichNumber
+        for (let i = 0; i < N; i++) {
+            whichNumber.push([]);
+            for (let j = 0; j < M; j++) {
+                whichNumber[whichNumber.length - 1].push(-1);
+            }
+        }
+
         const allNumbers = [1];
         allNumbers.pop();
 
@@ -27,6 +36,7 @@ fs.readFile("in.txt", "utf-8", (err, data) => {
                         curNum *= 10;
                         curNum += parseInt(c);
                     }
+                    whichNumber[i][j] = allNumbers.length;
                 } else if (curNum !== -1) {
                     allNumbers.push(curNum);
                     curNum = -1;
@@ -41,5 +51,6 @@ fs.readFile("in.txt", "utf-8", (err, data) => {
 
         console.log(allNumbers);
         console.log(seen);
+        console.log(whichNumber);
     }
 });
