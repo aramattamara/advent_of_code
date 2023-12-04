@@ -34,6 +34,12 @@ fs.readFile("in.txt", "utf-8", (err, data) => {
             }
         }
 
+        const seen = [];
+        for (let i = 0; i < allNumbers.length; i++) {
+            seen.push(false);
+        }
+
         console.log(allNumbers);
+        console.log(seen);
     }
 });
