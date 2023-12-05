@@ -23,10 +23,7 @@ fs.readFile("input.txt", "utf-8", (err, data) => {
         }
     }
 
-    const allNumbers = [1];
-    allNumbers.pop();
-
-
+    const allNumbers = [];
 
     for (let i = 0; i < N; i++) {
         let curNum = -1;
@@ -47,6 +44,12 @@ fs.readFile("input.txt", "utf-8", (err, data) => {
                 allNumbers.push(curNum);
                 curNum = -1;
             }
+
+        }
+
+        if (curNum !== -1) {
+            allNumbers.push(curNum);
+            curNum = -1;
         }
     }
 
@@ -56,6 +59,10 @@ fs.readFile("input.txt", "utf-8", (err, data) => {
     }
 
     function check(i, j) {
+        if (i === -1 || j === -1 || i === N || j === M) {
+            return;
+        }
+
         let k = whichNumber[i][j];
         if (k !== -1) {
             if (seen[k] === false) {
@@ -63,6 +70,7 @@ fs.readFile("input.txt", "utf-8", (err, data) => {
                 seen[k] = true;
             }
         }
+
     }
 
     for (let i = 0; i < N; i++) {
